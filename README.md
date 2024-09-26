@@ -51,15 +51,12 @@ Please follow the [installation procedure](#installation--usage) and then run th
 
 ```python
 
-import quepasa
-from quepasa.rest import ApiException
+import os
+import time
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.quepasa.ai/api/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = quepasa.Configuration(
-    host = "https://api.quepasa.ai/api/v1"
-)
+import quepasa
+from quepasa.rest import ApiException
 
 # The client must configure the authentication and authorization parameters
 # in accordance with the API server security policy.
@@ -75,16 +72,122 @@ configuration = quepasa.Configuration(
 # Enter a context with an instance of the API client
 with quepasa.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = quepasa.DefaultApi(api_client)
-    id = 'id_example' # str | 
+    client = quepasa.DefaultApi(api_client)
 
-    try:
-        # Get batch status
-        api_response = api_instance.get_batch_status(id)
-        print("The response of DefaultApi->get_batch_status:\n")
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling DefaultApi->get_batch_status: %s\n" % e)
+    domain = "default" # The name of a group of documents. Defaults to "default".
+    doc_id = "llm"
+
+    documents = [
+        {
+            # Required fields
+            'id': doc_id, # string
+            'url': "https://en.wikipedia.org/wiki/Large_language_model",
+
+            'title': "Large language model",
+            'language': "en", # two-char language code in lowercase
+            'text': """
+A large language model (LLM) is a computational model capable of language generation or other natural language processing tasks. As language models, LLMs acquire these abilities by learning statistical relationships from vast amounts of text during a self-supervised and semi-supervised training process.[
+
+The largest and most capable LLMs, as of August 2024, are artificial neural networks built with a decoder-only transformer-based architecture, which enables efficient processing and generation of large-scale text data. Modern models can be fine-tuned for specific tasks or can be guided by prompt engineering.
+These models acquire predictive power regarding syntax, semantics, and ontologies inherent in human language corpora, but they also inherit inaccuracies and biases present in the data they are trained on.
+
+Some notable LLMs are OpenAI's GPT series of models (e.g., GPT-3.5, GPT-4 and GPT-4o; used in ChatGPT and Microsoft Copilot), Google's Gemini (the latter of which is currently used in the chatbot of the same name), Meta's LLaMA family of models, IBM's Granite models initially released with Watsonx, Anthropic's Claude models, and Mistral AI's models.
+""".strip(),
+            # 'html': "", # or send text
+            # 'markdown': "", # or send markdown
+
+            # Optional fields:
+            # - 'keywords': document keywords, string, by default empty
+            # - 'created_at': "2024-05-20T07:26:06Z", # document creation datetime, by default datetime of first creation of this document via API
+            # - 'updated_at': "2024-05-20T07:26:06Z", # document last update datetime, by default datetime of last update of this document via API
+        },
+    ]
+
+
+    # Upsert document
+    print("The response of client.replace_documents:")
+    response = client.replace_documents(domain, documents)
+    pprint(response)
+
+    batch_id = response.data.batch_id
+
+
+    # Wait until indexation is finished
+    while batch_id != None:
+        print("The response of client.get_batch_status:")
+        response = client.get_batch_status(batch_id)
+        pprint(response)
+
+        time.sleep(10)
+        if response.status == 'Batch state: done':
+            break
+
+
+    print("The response of client.retrieve_answer:")
+    response = client.retrieve_answer({
+        'question': "What is LLM?",
+    })
+    pprint(response)
+    print(response.data.markdown)
+
+```
+
+### Upload file
+
+```python
+
+import os
+import time
+from pprint import pprint
+
+import quepasa
+from quepasa.rest import ApiException
+
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (Opaque): bearerAuth
+configuration = quepasa.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+
+# Enter a context with an instance of the API client
+with quepasa.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    client = quepasa.DefaultApi(api_client)
+
+    domain = "default" # The name of a group of documents. Defaults to "default".
+    filename = "TimeTravel101ForBeginners.pdf"
+
+    # Upload file
+    print("The response of client.upsert_files:")
+    response = client.upsert_files(domain, filename)
+    pprint(response)
+
+    batch_id = response.data.batch_id
+
+
+    # Wait until indexation is finished
+    while batch_id != None:
+        print("The response of client.get_batch_status:")
+        response = client.get_batch_status(batch_id)
+        pprint(response)
+
+        time.sleep(10)
+        if response.status == 'Batch state: done':
+            break
+
+
+    print("The response of client.retrieve_answer:")
+    response = client.retrieve_answer({
+        'question': "Can I un-eat yesterday burrito?",
+    })
+    pprint(response)
+    print(response.data.markdown)
 
 ```
 
@@ -147,7 +250,3 @@ Authentication schemes defined for the API:
 
 
 ## Author
-
-
-
-
