@@ -68,13 +68,13 @@ with quepasa.ApiClient(configuration) as api_client:
             'title': "Large language model",
             'language': "en", # two-char language code in lowercase
             'text': """
-A large language model (LLM) is a computational model capable of language generation or other natural language processing tasks. As language models, LLMs acquire these abilities by learning statistical relationships from vast amounts of text during a self-supervised and semi-supervised training process.[
+A large language model (LLM) is a computational model capable of language generation or other natural language processing tasks. As language models, LLMs acquire these abilities by learning statistical relationships from vast amounts of text during a self-supervised and semi-supervised training process.
 
 The largest and most capable LLMs, as of August 2024, are artificial neural networks built with a decoder-only transformer-based architecture, which enables efficient processing and generation of large-scale text data. Modern models can be fine-tuned for specific tasks or can be guided by prompt engineering.
 These models acquire predictive power regarding syntax, semantics, and ontologies inherent in human language corpora, but they also inherit inaccuracies and biases present in the data they are trained on.
 
 Some notable LLMs are OpenAI's GPT series of models (e.g., GPT-3.5, GPT-4 and GPT-4o; used in ChatGPT and Microsoft Copilot), Google's Gemini (the latter of which is currently used in the chatbot of the same name), Meta's LLaMA family of models, IBM's Granite models initially released with Watsonx, Anthropic's Claude models, and Mistral AI's models.
-""".strip(),
+            """.strip(),
             # 'html': "", # or send text
             # 'markdown': "", # or send markdown
 
@@ -179,17 +179,17 @@ All URIs are relative to *https://api.quepasa.ai/api/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**upsert_files**](docs/DefaultApi.md#upsert_files) | **POST** /upload/data/files/{domain} | Upsert files
+*DefaultApi* | [**upsert_documents**](docs/DefaultApi.md#upsert_documents) | **POST** /upload/data/documents/{domain} | Upsert documents
+*DefaultApi* | [**replace_documents**](docs/DefaultApi.md#replace_documents) | **PUT** /upload/data/documents/{domain} | Replace documents
 *DefaultApi* | [**get_batch_status**](docs/DefaultApi.md#get_batch_status) | **GET** /upload/data/batches/{id} | Get batch status
 *DefaultApi* | [**get_document**](docs/DefaultApi.md#get_document) | **GET** /upload/data/documents/{domain}/{id} | Get document details
 *DefaultApi* | [**list_documents**](docs/DefaultApi.md#list_documents) | **GET** /upload/data/documents/{domain} | List documents
 *DefaultApi* | [**remove_document**](docs/DefaultApi.md#remove_document) | **DELETE** /upload/data/documents/{domain}/{id} | Remove document
-*DefaultApi* | [**replace_documents**](docs/DefaultApi.md#replace_documents) | **PUT** /upload/data/documents/{domain} | Replace documents
 *DefaultApi* | [**reset_documents**](docs/DefaultApi.md#reset_documents) | **DELETE** /upload/data/documents/{domain} | Reset documents
 *DefaultApi* | [**retrieve_answer**](docs/DefaultApi.md#retrieve_answer) | **POST** /retrieve/answer | Retrieve answers or search data
 *DefaultApi* | [**retrieve_chunks**](docs/DefaultApi.md#retrieve_chunks) | **POST** /retrieve/chunks | Retrieve answers or search data
 *DefaultApi* | [**setup_telegram**](docs/DefaultApi.md#setup_telegram) | **PATCH** /upload/data/telegram | Setup Telegram integration
-*DefaultApi* | [**upsert_documents**](docs/DefaultApi.md#upsert_documents) | **POST** /upload/data/documents/{domain} | Upsert documents
-*DefaultApi* | [**upsert_files**](docs/DefaultApi.md#upsert_files) | **POST** /upload/data/files/{domain} | Upsert files
 
 
 ## Documentation For Models
