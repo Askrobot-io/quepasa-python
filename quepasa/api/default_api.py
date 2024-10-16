@@ -26,6 +26,7 @@ from quepasa.models.created_batch_status import CreatedBatchStatus
 from quepasa.models.document import Document
 from quepasa.models.document_detail import DocumentDetail
 from quepasa.models.retrieve_answer_request import RetrieveAnswerRequest
+from quepasa.models.retrieve_chunks_request import RetrieveChunksRequest
 from quepasa.models.setup_telegram_request import SetupTelegramRequest
 from quepasa.models.telegram_status import TelegramStatus
 
@@ -1123,298 +1124,7 @@ class DefaultApi:
 
 
     @validate_call
-    def replace_documents(
-        self,
-        domain: Annotated[StrictStr, Field(description="The domain name.")],
-        document: List[Document],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> CreatedBatchStatus:
-        """Replace documents
-
-        Replace all documents in the specified domain with the provided documents.
-
-        :param domain: The domain name. (required)
-        :type domain: str
-        :param document: (required)
-        :type document: List[Document]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._replace_documents_serialize(
-            domain=domain,
-            document=document,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CreatedBatchStatus",
-            '500': "OperationFailedStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def replace_documents_with_http_info(
-        self,
-        domain: Annotated[StrictStr, Field(description="The domain name.")],
-        document: List[Document],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[CreatedBatchStatus]:
-        """Replace documents
-
-        Replace all documents in the specified domain with the provided documents.
-
-        :param domain: The domain name. (required)
-        :type domain: str
-        :param document: (required)
-        :type document: List[Document]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._replace_documents_serialize(
-            domain=domain,
-            document=document,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CreatedBatchStatus",
-            '500': "OperationFailedStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def replace_documents_without_preload_content(
-        self,
-        domain: Annotated[StrictStr, Field(description="The domain name.")],
-        document: List[Document],
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Replace documents
-
-        Replace all documents in the specified domain with the provided documents.
-
-        :param domain: The domain name. (required)
-        :type domain: str
-        :param document: (required)
-        :type document: List[Document]
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._replace_documents_serialize(
-            domain=domain,
-            document=document,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CreatedBatchStatus",
-            '500': "OperationFailedStatus",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _replace_documents_serialize(
-        self,
-        domain,
-        document,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-            'Document': '',
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, Union[str, bytes]] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if domain is not None:
-            _path_params['domain'] = domain
-        # process the query parameters
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if document is not None:
-            _body_params = document
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'bearerAuth'
-        ]
-
-        return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/upload/data/documents/{domain}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def reset_documents(
+    def remove_domain(
         self,
         domain: Annotated[StrictStr, Field(description="The domain name.")],
         _request_timeout: Union[
@@ -1430,7 +1140,7 @@ class DefaultApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> CreatedBatchStatus:
-        """Reset documents
+        """Remove domain
 
         Remove all documents from the specified domain.
 
@@ -1458,7 +1168,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_documents_serialize(
+        _param = self._remove_domain_serialize(
             domain=domain,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1482,7 +1192,7 @@ class DefaultApi:
 
 
     @validate_call
-    def reset_documents_with_http_info(
+    def remove_domain_with_http_info(
         self,
         domain: Annotated[StrictStr, Field(description="The domain name.")],
         _request_timeout: Union[
@@ -1498,7 +1208,7 @@ class DefaultApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[CreatedBatchStatus]:
-        """Reset documents
+        """Remove domain
 
         Remove all documents from the specified domain.
 
@@ -1526,7 +1236,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_documents_serialize(
+        _param = self._remove_domain_serialize(
             domain=domain,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1550,7 +1260,7 @@ class DefaultApi:
 
 
     @validate_call
-    def reset_documents_without_preload_content(
+    def remove_domain_without_preload_content(
         self,
         domain: Annotated[StrictStr, Field(description="The domain name.")],
         _request_timeout: Union[
@@ -1566,7 +1276,7 @@ class DefaultApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Reset documents
+        """Remove domain
 
         Remove all documents from the specified domain.
 
@@ -1594,7 +1304,7 @@ class DefaultApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_documents_serialize(
+        _param = self._remove_domain_serialize(
             domain=domain,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1613,7 +1323,7 @@ class DefaultApi:
         return response_data.response
 
 
-    def _reset_documents_serialize(
+    def _remove_domain_serialize(
         self,
         domain,
         _request_auth,
@@ -1676,6 +1386,297 @@ class DefaultApi:
 
 
     @validate_call
+    def replace_documents(
+        self,
+        domain: Annotated[StrictStr, Field(description="The domain name.")],
+        documents: List[Document],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> CreatedBatchStatus:
+        """Replace documents
+
+        Replace all documents in the specified domain with the provided documents.
+
+        :param domain: The domain name. (required)
+        :type domain: str
+        :param documents: (required)
+        :type documents: List[Document]
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._replace_documents_serialize(
+            domain=domain,
+            documents=documents,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CreatedBatchStatus",
+            '500': "OperationFailedStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def replace_documents_with_http_info(
+        self,
+        domain: Annotated[StrictStr, Field(description="The domain name.")],
+        documents: List[Document],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[CreatedBatchStatus]:
+        """Replace documents
+
+        Replace all documents in the specified domain with the provided documents.
+
+        :param domain: The domain name. (required)
+        :type domain: str
+        :param documents: (required)
+        :type documents: List[Document]
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._replace_documents_serialize(
+            domain=domain,
+            documents=documents,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CreatedBatchStatus",
+            '500': "OperationFailedStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def replace_documents_without_preload_content(
+        self,
+        domain: Annotated[StrictStr, Field(description="The domain name.")],
+        documents: List[Document],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Replace documents
+
+        Replace all documents in the specified domain with the provided documents.
+
+        :param domain: The domain name. (required)
+        :type domain: str
+        :param documents: (required)
+        :type documents: List[Document]
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._replace_documents_serialize(
+            domain=domain,
+            documents=documents,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CreatedBatchStatus",
+            '500': "OperationFailedStatus",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _replace_documents_serialize(
+        self,
+        domain,
+        documents,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'Document': '',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if domain is not None:
+            _path_params['domain'] = domain
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if documents is not None:
+            _body_params = documents
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='PUT',
+            resource_path='/upload/data/documents/{domain}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def retrieve_answer(
         self,
         retrieve_answer_request: RetrieveAnswerRequest,
@@ -1692,9 +1693,9 @@ class DefaultApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AnswerDetail:
-        """Retrieve answers or search data
+        """Retrieve answers
 
-        This endpoint allows you to generate an answer based on your data.
+        Generate an answer based on your data.
 
         :param retrieve_answer_request: (required)
         :type retrieve_answer_request: RetrieveAnswerRequest
@@ -1760,9 +1761,9 @@ class DefaultApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AnswerDetail]:
-        """Retrieve answers or search data
+        """Retrieve answers
 
-        This endpoint allows you to generate an answer based on your data.
+        Generate an answer based on your data.
 
         :param retrieve_answer_request: (required)
         :type retrieve_answer_request: RetrieveAnswerRequest
@@ -1828,9 +1829,9 @@ class DefaultApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Retrieve answers or search data
+        """Retrieve answers
 
-        This endpoint allows you to generate an answer based on your data.
+        Generate an answer based on your data.
 
         :param retrieve_answer_request: (required)
         :type retrieve_answer_request: RetrieveAnswerRequest
@@ -1953,7 +1954,7 @@ class DefaultApi:
     @validate_call
     def retrieve_chunks(
         self,
-        retrieve_answer_request: RetrieveAnswerRequest,
+        retrieve_chunks_request: RetrieveChunksRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1967,12 +1968,12 @@ class DefaultApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ChunksDetail:
-        """Retrieve answers or search data
+        """Retrieve search results
 
         This endpoint allows you to perform a search on your data.
 
-        :param retrieve_answer_request: (required)
-        :type retrieve_answer_request: RetrieveAnswerRequest
+        :param retrieve_chunks_request: (required)
+        :type retrieve_chunks_request: RetrieveChunksRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1996,7 +1997,7 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._retrieve_chunks_serialize(
-            retrieve_answer_request=retrieve_answer_request,
+            retrieve_chunks_request=retrieve_chunks_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2021,7 +2022,7 @@ class DefaultApi:
     @validate_call
     def retrieve_chunks_with_http_info(
         self,
-        retrieve_answer_request: RetrieveAnswerRequest,
+        retrieve_chunks_request: RetrieveChunksRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2035,12 +2036,12 @@ class DefaultApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ChunksDetail]:
-        """Retrieve answers or search data
+        """Retrieve search results
 
         This endpoint allows you to perform a search on your data.
 
-        :param retrieve_answer_request: (required)
-        :type retrieve_answer_request: RetrieveAnswerRequest
+        :param retrieve_chunks_request: (required)
+        :type retrieve_chunks_request: RetrieveChunksRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2064,7 +2065,7 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._retrieve_chunks_serialize(
-            retrieve_answer_request=retrieve_answer_request,
+            retrieve_chunks_request=retrieve_chunks_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2089,7 +2090,7 @@ class DefaultApi:
     @validate_call
     def retrieve_chunks_without_preload_content(
         self,
-        retrieve_answer_request: RetrieveAnswerRequest,
+        retrieve_chunks_request: RetrieveChunksRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2103,12 +2104,12 @@ class DefaultApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Retrieve answers or search data
+        """Retrieve search results
 
         This endpoint allows you to perform a search on your data.
 
-        :param retrieve_answer_request: (required)
-        :type retrieve_answer_request: RetrieveAnswerRequest
+        :param retrieve_chunks_request: (required)
+        :type retrieve_chunks_request: RetrieveChunksRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2132,7 +2133,7 @@ class DefaultApi:
         """ # noqa: E501
 
         _param = self._retrieve_chunks_serialize(
-            retrieve_answer_request=retrieve_answer_request,
+            retrieve_chunks_request=retrieve_chunks_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2152,7 +2153,7 @@ class DefaultApi:
 
     def _retrieve_chunks_serialize(
         self,
-        retrieve_answer_request,
+        retrieve_chunks_request,
         _request_auth,
         _content_type,
         _headers,
@@ -2176,8 +2177,8 @@ class DefaultApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if retrieve_answer_request is not None:
-            _body_params = retrieve_answer_request
+        if retrieve_chunks_request is not None:
+            _body_params = retrieve_chunks_request
 
 
         # set the HTTP header `Accept`
@@ -2504,7 +2505,7 @@ class DefaultApi:
     def upsert_documents(
         self,
         domain: Annotated[StrictStr, Field(description="The domain name.")],
-        document: List[Document],
+        documents: List[Document],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2524,8 +2525,8 @@ class DefaultApi:
 
         :param domain: The domain name. (required)
         :type domain: str
-        :param document: (required)
-        :type document: List[Document]
+        :param documents: (required)
+        :type documents: List[Document]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2550,7 +2551,7 @@ class DefaultApi:
 
         _param = self._upsert_documents_serialize(
             domain=domain,
-            document=document,
+            documents=documents,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2576,7 +2577,7 @@ class DefaultApi:
     def upsert_documents_with_http_info(
         self,
         domain: Annotated[StrictStr, Field(description="The domain name.")],
-        document: List[Document],
+        documents: List[Document],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2596,8 +2597,8 @@ class DefaultApi:
 
         :param domain: The domain name. (required)
         :type domain: str
-        :param document: (required)
-        :type document: List[Document]
+        :param documents: (required)
+        :type documents: List[Document]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2622,7 +2623,7 @@ class DefaultApi:
 
         _param = self._upsert_documents_serialize(
             domain=domain,
-            document=document,
+            documents=documents,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2648,7 +2649,7 @@ class DefaultApi:
     def upsert_documents_without_preload_content(
         self,
         domain: Annotated[StrictStr, Field(description="The domain name.")],
-        document: List[Document],
+        documents: List[Document],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2668,8 +2669,8 @@ class DefaultApi:
 
         :param domain: The domain name. (required)
         :type domain: str
-        :param document: (required)
-        :type document: List[Document]
+        :param documents: (required)
+        :type documents: List[Document]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2694,7 +2695,7 @@ class DefaultApi:
 
         _param = self._upsert_documents_serialize(
             domain=domain,
-            document=document,
+            documents=documents,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2715,7 +2716,7 @@ class DefaultApi:
     def _upsert_documents_serialize(
         self,
         domain,
-        document,
+        documents,
         _request_auth,
         _content_type,
         _headers,
@@ -2742,8 +2743,8 @@ class DefaultApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if document is not None:
-            _body_params = document
+        if documents is not None:
+            _body_params = documents
 
 
         # set the HTTP header `Accept`
@@ -2796,7 +2797,7 @@ class DefaultApi:
         self,
         domain: Annotated[StrictStr, Field(description="The domain name.")],
         file: Annotated[Union[StrictBytes, StrictStr], Field(description="The file to be uploaded.")],
-        language: Annotated[Optional[StrictStr], Field(description="Two-character language code (e.g., \\\"en\\\").")] = None,
+        language: Annotated[Optional[StrictStr], Field(description="Two-character language code (e.g., 'en').")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2812,13 +2813,13 @@ class DefaultApi:
     ) -> CreatedBatchStatus:
         """Upsert files
 
-        Upload and upsert files into the document system.
+        Upload and upsert files into the document system.  Available formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx
 
         :param domain: The domain name. (required)
         :type domain: str
         :param file: The file to be uploaded. (required)
         :type file: bytearray
-        :param language: Two-character language code (e.g., \\\"en\\\").
+        :param language: Two-character language code (e.g., 'en').
         :type language: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2872,7 +2873,7 @@ class DefaultApi:
         self,
         domain: Annotated[StrictStr, Field(description="The domain name.")],
         file: Annotated[Union[StrictBytes, StrictStr], Field(description="The file to be uploaded.")],
-        language: Annotated[Optional[StrictStr], Field(description="Two-character language code (e.g., \\\"en\\\").")] = None,
+        language: Annotated[Optional[StrictStr], Field(description="Two-character language code (e.g., 'en').")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2888,13 +2889,13 @@ class DefaultApi:
     ) -> ApiResponse[CreatedBatchStatus]:
         """Upsert files
 
-        Upload and upsert files into the document system.
+        Upload and upsert files into the document system.  Available formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx
 
         :param domain: The domain name. (required)
         :type domain: str
         :param file: The file to be uploaded. (required)
         :type file: bytearray
-        :param language: Two-character language code (e.g., \\\"en\\\").
+        :param language: Two-character language code (e.g., 'en').
         :type language: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2948,7 +2949,7 @@ class DefaultApi:
         self,
         domain: Annotated[StrictStr, Field(description="The domain name.")],
         file: Annotated[Union[StrictBytes, StrictStr], Field(description="The file to be uploaded.")],
-        language: Annotated[Optional[StrictStr], Field(description="Two-character language code (e.g., \\\"en\\\").")] = None,
+        language: Annotated[Optional[StrictStr], Field(description="Two-character language code (e.g., 'en').")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2964,13 +2965,13 @@ class DefaultApi:
     ) -> RESTResponseType:
         """Upsert files
 
-        Upload and upsert files into the document system.
+        Upload and upsert files into the document system.  Available formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx
 
         :param domain: The domain name. (required)
         :type domain: str
         :param file: The file to be uploaded. (required)
         :type file: bytearray
-        :param language: Two-character language code (e.g., \\\"en\\\").
+        :param language: Two-character language code (e.g., 'en').
         :type language: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3092,5 +3093,3 @@ class DefaultApi:
             _host=_host,
             _request_auth=_request_auth
         )
-
-

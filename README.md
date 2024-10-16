@@ -85,10 +85,48 @@ Some notable LLMs are OpenAI's GPT series of models (e.g., GPT-3.5, GPT-4 and GP
         },
     ]
 
+    # OR
+
+
+    documents = [
+        {
+            # Required fields
+            'id': doc_id, # string
+            'url': "https://en.wikipedia.org/wiki/Large_language_model",
+
+            'title': "Large language model",
+            'pages': [
+                {
+                    'language': "en", # two-char language code in lowercase
+                    'text': """
+A large language model (LLM) is a computational model capable of language generation or other natural language processing tasks. As language models, LLMs acquire these abilities by learning statistical relationships from vast amounts of text during a self-supervised and semi-supervised training process.
+                    """.strip(),
+                },
+                {
+                    'language': "en", # two-char language code in lowercase
+                    'text': """
+The largest and most capable LLMs, as of August 2024, are artificial neural networks built with a decoder-only transformer-based architecture, which enables efficient processing and generation of large-scale text data. Modern models can be fine-tuned for specific tasks or can be guided by prompt engineering.
+These models acquire predictive power regarding syntax, semantics, and ontologies inherent in human language corpora, but they also inherit inaccuracies and biases present in the data they are trained on.
+                    """.strip(),
+                },
+                {
+                    'language': "en", # two-char language code in lowercase
+                    'text': """
+Some notable LLMs are OpenAI's GPT series of models (e.g., GPT-3.5, GPT-4 and GPT-4o; used in ChatGPT and Microsoft Copilot), Google's Gemini (the latter of which is currently used in the chatbot of the same name), Meta's LLaMA family of models, IBM's Granite models initially released with Watsonx, Anthropic's Claude models, and Mistral AI's models.
+                    """.strip(),
+                },
+            ],
+
+            # Optional fields:
+            # - 'keywords': document keywords, string, by default empty
+            # - 'created_at': "2024-05-20T07:26:06Z", # document creation datetime, by default datetime of first creation of this document via API
+            # - 'updated_at': "2024-05-20T07:26:06Z", # document last update datetime, by default datetime of last update of this document via API
+        },
+    ]
 
     # Upsert document
-    print("The response of client.replace_documents:")
-    response = client.replace_documents(domain, documents)
+    print("The response of client.upsert_documents:")
+    response = client.upsert_documents(domain, documents)
     pprint(response)
 
     batch_id = response.data.batch_id
@@ -186,9 +224,9 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**get_document**](docs/DefaultApi.md#get_document) | **GET** /upload/data/documents/{domain}/{id} | Get document details
 *DefaultApi* | [**list_documents**](docs/DefaultApi.md#list_documents) | **GET** /upload/data/documents/{domain} | List documents
 *DefaultApi* | [**remove_document**](docs/DefaultApi.md#remove_document) | **DELETE** /upload/data/documents/{domain}/{id} | Remove document
-*DefaultApi* | [**reset_documents**](docs/DefaultApi.md#reset_documents) | **DELETE** /upload/data/documents/{domain} | Reset documents
-*DefaultApi* | [**retrieve_answer**](docs/DefaultApi.md#retrieve_answer) | **POST** /retrieve/answer | Retrieve answers or search data
-*DefaultApi* | [**retrieve_chunks**](docs/DefaultApi.md#retrieve_chunks) | **POST** /retrieve/chunks | Retrieve answers or search data
+*DefaultApi* | [**remove_domain**](docs/DefaultApi.md#remove_domain) | **DELETE** /upload/data/documents/{domain} | Remove domain
+*DefaultApi* | [**retrieve_answer**](docs/DefaultApi.md#retrieve_answer) | **POST** /retrieve/answer | Retrieve answers
+*DefaultApi* | [**retrieve_chunks**](docs/DefaultApi.md#retrieve_chunks) | **POST** /retrieve/chunks | Retrieve search results
 *DefaultApi* | [**setup_telegram**](docs/DefaultApi.md#setup_telegram) | **PATCH** /upload/data/telegram | Setup Telegram integration
 
 
@@ -212,7 +250,9 @@ Class | Method | HTTP request | Description
  - [DocumentPagesInner](docs/DocumentPagesInner.md)
  - [OperationFailedStatus](docs/OperationFailedStatus.md)
  - [RetrieveAnswerRequest](docs/RetrieveAnswerRequest.md)
+ - [RetrieveAnswerRequestDocumentRelevanceWeights](docs/RetrieveAnswerRequestDocumentRelevanceWeights.md)
  - [RetrieveAnswerRequestUserInfo](docs/RetrieveAnswerRequestUserInfo.md)
+ - [RetrieveChunksRequest](docs/RetrieveChunksRequest.md)
  - [SetupTelegramRequest](docs/SetupTelegramRequest.md)
  - [SetupTelegramRequestCommands](docs/SetupTelegramRequestCommands.md)
  - [SetupTelegramRequestCommandsAsk](docs/SetupTelegramRequestCommandsAsk.md)

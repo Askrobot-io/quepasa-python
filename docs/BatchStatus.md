@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **str** | Status of the batch (e.g., \&quot;uploaded\&quot;, \&quot;backlog\&quot;, \&quot;in_progress\&quot;, \&quot;done\&quot;). | 
+**status** | **str** | Status of the batch (e.g., \&quot;uploaded\&quot;, \&quot;backlog\&quot;, \&quot;in_progress\&quot;, \&quot;done\&quot;). Possible values: - Batch state: uploaded - Batch state: backlog - Batch state: in_progress - Batch state: done  | 
 **data** | [**BatchStatusData**](BatchStatusData.md) |  | [optional] 
 
 ## Example

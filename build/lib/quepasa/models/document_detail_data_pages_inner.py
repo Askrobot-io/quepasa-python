@@ -27,7 +27,7 @@ class DocumentDetailDataPagesInner(BaseModel):
     DocumentDetailDataPagesInner
     """ # noqa: E501
     text: StrictStr = Field(description="The content of the chunk.")
-    language: StrictStr = Field(description="Two-character language code (e.g., \"en\").")
+    language: StrictStr = Field(description="Two-character language code (e.g., 'en').")
     keywords: Optional[StrictStr] = Field(default=None, description="Optional keywords for search optimization.")
     __properties: ClassVar[List[str]] = ["text", "language", "keywords"]
 

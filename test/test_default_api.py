@@ -54,6 +54,13 @@ class TestDefaultApi(unittest.TestCase):
         """
         pass
 
+    def test_remove_domain(self) -> None:
+        """Test case for remove_domain
+
+        Remove domain
+        """
+        pass
+
     def test_replace_documents(self) -> None:
         """Test case for replace_documents
 
@@ -61,10 +68,17 @@ class TestDefaultApi(unittest.TestCase):
         """
         pass
 
-    def test_reset_documents(self) -> None:
-        """Test case for reset_documents
+    def test_retrieve_answer(self) -> None:
+        """Test case for retrieve_answer
 
-        Reset documents
+        Retrieve answers
+        """
+        pass
+
+    def test_retrieve_chunks(self) -> None:
+        """Test case for retrieve_chunks
+
+        Retrieve search results
         """
         pass
 

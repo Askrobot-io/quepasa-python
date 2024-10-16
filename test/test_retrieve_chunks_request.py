@@ -14,10 +14,10 @@
 
 import unittest
 
-from quepasa.models.retrieve_answer_request import RetrieveAnswerRequest
+from quepasa.models.retrieve_chunks_request import RetrieveChunksRequest
 
-class TestRetrieveAnswerRequest(unittest.TestCase):
-    """RetrieveAnswerRequest unit test stubs"""
+class TestRetrieveChunksRequest(unittest.TestCase):
+    """RetrieveChunksRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,38 +25,32 @@ class TestRetrieveAnswerRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> RetrieveAnswerRequest:
-        """Test RetrieveAnswerRequest
+    def make_instance(self, include_optional) -> RetrieveChunksRequest:
+        """Test RetrieveChunksRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `RetrieveAnswerRequest`
+        # uncomment below to create an instance of `RetrieveChunksRequest`
         """
-        model = RetrieveAnswerRequest()
+        model = RetrieveChunksRequest()
         if include_optional:
-            return RetrieveAnswerRequest(
+            return RetrieveChunksRequest(
                 question = 'What is LLM?',
                 domain = 'default',
-                llm = 'anthropic:claude-3-5-sonnet-20240620',
-                prompt = 'anthropic:claude-3-5-sonnet-20240620',
-                answer_prompt_size = 900,
-                prompt_total_size = 900,
                 document_relevance_weights = quepasa.models.retrieve_answer_request_document_relevance_weights.retrieveAnswer_request_document_relevance_weights(
                     text = 0.5, 
                     semantic = 0.5, ),
                 chunk_relevance_weights = quepasa.models.retrieve_answer_request_document_relevance_weights.retrieveAnswer_request_document_relevance_weights(
                     text = 0.5, 
-                    semantic = 0.5, ),
-                user_info = quepasa.models.retrieve_answer_request_user_info.retrieveAnswer_request_user_info(
-                    id = 'replace-with-some-user-id', )
+                    semantic = 0.5, )
             )
         else:
-            return RetrieveAnswerRequest(
+            return RetrieveChunksRequest(
         )
         """
 
-    def testRetrieveAnswerRequest(self):
-        """Test RetrieveAnswerRequest"""
+    def testRetrieveChunksRequest(self):
+        """Test RetrieveChunksRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

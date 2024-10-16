@@ -19,15 +19,19 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from quepasa.models.retrieve_answer_request_document_relevance_weights import RetrieveAnswerRequestDocumentRelevanceWeights
 from typing import Optional, Set
 from typing_extensions import Self
 
-class RetrieveDataRequestUserInfo(BaseModel):
+class RetrieveChunksRequest(BaseModel):
     """
-    Optional user info to track requests.
+    RetrieveChunksRequest
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="Unique user ID.")
-    __properties: ClassVar[List[str]] = ["id"]
+    question: Optional[StrictStr] = Field(default=None, description="Natural language query to retrieve or answer.")
+    domain: Optional[StrictStr] = Field(default=None, description="The name of a group of documents.")
+    document_relevance_weights: Optional[RetrieveAnswerRequestDocumentRelevanceWeights] = None
+    chunk_relevance_weights: Optional[RetrieveAnswerRequestDocumentRelevanceWeights] = None
+    __properties: ClassVar[List[str]] = ["question", "domain", "document_relevance_weights", "chunk_relevance_weights"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -47,7 +51,7 @@ class RetrieveDataRequestUserInfo(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of RetrieveDataRequestUserInfo from a JSON string"""
+        """Create an instance of RetrieveChunksRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -68,11 +72,17 @@ class RetrieveDataRequestUserInfo(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of document_relevance_weights
+        if self.document_relevance_weights:
+            _dict['document_relevance_weights'] = self.document_relevance_weights.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of chunk_relevance_weights
+        if self.chunk_relevance_weights:
+            _dict['chunk_relevance_weights'] = self.chunk_relevance_weights.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of RetrieveDataRequestUserInfo from a dict"""
+        """Create an instance of RetrieveChunksRequest from a dict"""
         if obj is None:
             return None
 
@@ -80,7 +90,10 @@ class RetrieveDataRequestUserInfo(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id")
+            "question": obj.get("question"),
+            "domain": obj.get("domain"),
+            "document_relevance_weights": RetrieveAnswerRequestDocumentRelevanceWeights.from_dict(obj["document_relevance_weights"]) if obj.get("document_relevance_weights") is not None else None,
+            "chunk_relevance_weights": RetrieveAnswerRequestDocumentRelevanceWeights.from_dict(obj["chunk_relevance_weights"]) if obj.get("chunk_relevance_weights") is not None else None
         })
         return _obj
 

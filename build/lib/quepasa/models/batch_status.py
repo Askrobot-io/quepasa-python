@@ -27,7 +27,7 @@ class BatchStatus(BaseModel):
     """
     BatchStatus
     """ # noqa: E501
-    status: StrictStr = Field(description="Status of the batch (e.g., \"uploaded\", \"backlog\", \"in_progress\", \"done\").")
+    status: StrictStr = Field(description="Status of the batch (e.g., \"uploaded\", \"backlog\", \"in_progress\", \"done\"). Possible values: \"Batch state: uploaded\", \"Batch state: backlog\", \"Batch state: in_progress\", \"Batch state: done\" ")
     data: Optional[BatchStatusData] = None
     __properties: ClassVar[List[str]] = ["status", "data"]
 
@@ -89,5 +89,3 @@ class BatchStatus(BaseModel):
             "data": BatchStatusData.from_dict(obj["data"]) if obj.get("data") is not None else None
         })
         return _obj
-
-

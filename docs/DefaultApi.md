@@ -11,9 +11,9 @@ Method | HTTP request | Description
 [**get_document**](DefaultApi.md#get_document) | **GET** /upload/data/documents/{domain}/{id} | Get document details
 [**list_documents**](DefaultApi.md#list_documents) | **GET** /upload/data/documents/{domain} | List documents
 [**remove_document**](DefaultApi.md#remove_document) | **DELETE** /upload/data/documents/{domain}/{id} | Remove document
-[**reset_documents**](DefaultApi.md#reset_documents) | **DELETE** /upload/data/documents/{domain} | Reset documents
-[**retrieve_answer**](DefaultApi.md#retrieve_answer) | **POST** /retrieve/answer | Retrieve answers or search data
-[**retrieve_chunks**](DefaultApi.md#retrieve_chunks) | **POST** /retrieve/chunks | Retrieve answers or search data
+[**remove_domain**](DefaultApi.md#remove_domain) | **DELETE** /upload/data/documents/{domain} | Remove domain
+[**retrieve_answer**](DefaultApi.md#retrieve_answer) | **POST** /retrieve/answer | Retrieve answers
+[**retrieve_chunks**](DefaultApi.md#retrieve_chunks) | **POST** /retrieve/chunks | Retrieve search results
 [**setup_telegram**](DefaultApi.md#setup_telegram) | **PATCH** /upload/data/telegram | Setup Telegram integration
 
 
@@ -23,6 +23,8 @@ Method | HTTP request | Description
 Upsert files
 
 Upload and upsert files into the document system.
+
+Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx
 
 ### Example
 
@@ -55,7 +57,7 @@ with quepasa.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     client = quepasa.DefaultApi(api_client)
     domain = 'default' # str | The name of a group of documents. Defaults to "default".
-    file = 'filename.pdf' # Supported formats: pdf, doc, docx, ppt, pptx.
+    file = 'filename.pdf' # Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx
     language = 'en' # str | Two-character language code (e.g., "en"). (optional)
 
     try:
@@ -100,7 +102,7 @@ Name | Type | Description  | Notes
 
 
 # **upsert_documents**
-> CreatedBatchStatus upsert_documents(domain, document)
+> CreatedBatchStatus upsert_documents(domain, documents)
 
 Upsert documents
 
@@ -212,7 +214,7 @@ with quepasa.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **domain** | **str**| The name of a group of documents. Defaults to "default". |
+ **domain** | **str**| The name of a group of documents. By default, if the field is left empty, the domain name is "default". |
  **documents** | [**List[Document]**](Document.md)|  |
 
 ### Return type
@@ -240,7 +242,7 @@ Name | Type | Description  | Notes
 
 
 # **replace_documents**
-> CreatedBatchStatus replace_documents(domain, document)
+> CreatedBatchStatus replace_documents(domain, documents)
 
 Replace documents
 
@@ -352,7 +354,7 @@ with quepasa.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **domain** | **str**| The name of a group of documents. Defaults to "default". |
+ **domain** | **str**| The name of a group of documents. By default, if the field is left empty, the domain name is "default". |
  **documents** | [**List[Document]**](Document.md)|  |
 
 ### Return type
@@ -450,7 +452,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Batch status retrieved. Status of the batch (e.g., "uploaded", "backlog", "in_progress", "done"). |  -  |
+**200** | Batch status retrieved. Status of the batch (e.g., "uploaded", "backlog", "in_progress", "done"). Possible values: "Batch state: uploaded", "Batch state: backlog", "Batch state: in_progress", "Batch state: done" |  -  |
 **404** | Batch not found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -510,7 +512,7 @@ with quepasa.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **domain** | **str**| The name of a group of documents. Defaults to "default". |
+ **domain** | **str**| The name of a group of documents. By default, if the field is left empty, the domain name is "default". |
  **id** | **str**|  |
 
 ### Return type
@@ -589,7 +591,7 @@ with quepasa.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **domain** | **str**| The name of a group of documents. Defaults to "default". |
+ **domain** | **str**| The name of a group of documents. By default, if the field is left empty, the domain name is "default". |
 
 ### Return type
 
@@ -667,7 +669,7 @@ with quepasa.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **domain** | **str**|  |
+ **domain** | **str**| The name of a group of documents. By default, if the field is left empty, the domain name is "default". |
  **id** | **str**|  |
 
 ### Return type
@@ -694,10 +696,10 @@ Name | Type | Description  | Notes
 
 
 
-# **reset_documents**
-> CreatedBatchStatus reset_documents(domain)
+# **remove_domain**
+> CreatedBatchStatus remove_domain(domain)
 
-Reset documents
+Remove domain
 
 Remove all documents from the specified domain.
 
@@ -734,19 +736,19 @@ with quepasa.ApiClient(configuration) as api_client:
     domain = 'default' # str | The name of a group of documents. Defaults to "default".
 
     try:
-        # Reset documents
-        response = client.reset_documents(domain)
-        print("The response of client.reset_documents:\n")
+        # Remove domain
+        response = client.remove_domain(domain)
+        print("The response of client.remove_domain:\n")
         pprint(response)
     except Exception as e:
-        print("Exception when calling client.reset_documents: %s\n" % e)
+        print("Exception when calling client.remove_domain: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **domain** | **str**| The name of a group of documents. Defaults to "default". |
+ **domain** | **str**| The name of a group of documents. By default, if the field is left empty, the domain name is "default". |
 
 ### Return type
 
@@ -775,9 +777,9 @@ Name | Type | Description  | Notes
 # **retrieve_answer**
 > AnswerDetail retrieve_answer(retrieve_answer_request)
 
-Retrieve answers or search data
+Retrieve answers
 
-This endpoint allows you to generate an answer based on your data.
+Generate an answer based on your data.
 
 ### Example
 
@@ -810,12 +812,67 @@ configuration = quepasa.Configuration(
 with quepasa.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     client = quepasa.DefaultApi(api_client)
+
     retrieve_answer_request = {
         'question': "What is LLM?",
     }
 
+    # OR
+
+    retrieve_answer_request = {
+        'question': "What is LLM?",
+        'domain': "default",
+    }
+
+    # OR
+
+    retrieve_answer_request = {
+        'question': "What is LLM?",
+        'domain': ["default", "another"],
+    }
+
+    # OR
+
+    retrieve_answer_request = {
+        'question': "What is LLM?",
+        'llm': "mistral:mistral-large-2402",
+    }
+
+    # OR
+
+    retrieve_answer_request = {
+        'question': "What is LLM?",
+        'prompt': """
+You're a bot-assistant that answers the questions.
+
+When answering the question, use the following rules:
+- always answer in {{LANGUAGE}} language;
+- use ONLY the information from the sources below;
+- answer briefly in just a few sentences, strictly in accordance with the sources, and do not make any assumptions;
+- reference the source if you use it in the answer, e.g. [#1] or [#2][#4];
+- if there is no information on the question in the sources: say that you can't find the answer and ask the user to try to reformulate the question.
+
+Sources:
+{{SOURCES}}
+        """.strip(),
+    }
+
+    # OR
+
+    retrieve_answer_request = {
+        'question': "What is LLM?",
+        'document_relevance_weights': {
+            "text": 1.0,
+            "semantic": 0.0
+        },
+        'chunk_relevance_weights': {
+            "text": 1.0,
+            "semantic": 0.0
+        }
+    }
+
     try:
-        # Retrieve answers or search data
+        # Retrieve answers
         response = client.retrieve_answer(retrieve_answer_request)
         print("The response of client.retrieve_answer:\n")
         pprint(response)
@@ -854,9 +911,9 @@ Name | Type | Description  | Notes
 
 
 # **retrieve_chunks**
-> ChunksDetail retrieve_chunks(retrieve_answer_request)
+> ChunksDetail retrieve_chunks(retrieve_chunks_request)
 
-Retrieve answers or search data
+Retrieve search results
 
 This endpoint allows you to perform a search on your data.
 
@@ -867,7 +924,7 @@ This endpoint allows you to perform a search on your data.
 ```python
 import quepasa
 from quepasa.models.chunks_detail import ChunksDetail
-from quepasa.models.retrieve_answer_request import RetrieveAnswerRequest
+from quepasa.models.retrieve_chunks_request import RetrieveChunksRequest
 from quepasa.rest import ApiException
 from pprint import pprint
 
@@ -891,13 +948,42 @@ configuration = quepasa.Configuration(
 with quepasa.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     client = quepasa.DefaultApi(api_client)
-    retrieve_answer_request = {
+
+    retrieve_chunks_request = {
         'question': "What is LLM?",
     }
 
+    # OR
+
+    retrieve_chunks_request = {
+        'question': "What is LLM?",
+        'domain': "default",
+    }
+
+    # OR
+
+    retrieve_chunks_request = {
+        'question': "What is LLM?",
+        'domain': ["default", "another"],
+    }
+
+    # OR
+
+    retrieve_chunks_request = {
+        'question': "What is LLM?",
+        'document_relevance_weights': {
+            "text": 1.0,
+            "semantic": 0.0
+        },
+        'chunk_relevance_weights': {
+            "text": 1.0,
+            "semantic": 0.0
+        }
+    }
+
     try:
-        # Retrieve answers or search data
-        response = client.retrieve_chunks(retrieve_answer_request)
+        # Retrieve search results
+        response = client.retrieve_chunks(retrieve_chunks_request)
         print("The response of client.retrieve_chunks:\n")
         pprint(response)
     except Exception as e:
@@ -908,7 +994,7 @@ with quepasa.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **retrieve_answer_request** | [**RetrieveAnswerRequest**](RetrieveAnswerRequest.md)|  |
+ **retrieve_chunks_request** | [**RetrieveChunksRequest**](RetrieveChunksRequest.md)|  |
 
 ### Return type
 

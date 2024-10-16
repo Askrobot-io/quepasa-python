@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **text** | **str** | The content of the chunk. | 
-**language** | **str** | Two-character language code (e.g., \&quot;en\&quot;). | 
+**language** | **str** | Two-character language code (e.g., "en"). | 
 **keywords** | **str** | Optional keywords for search optimization. | [optional] 
 
 ## Example

@@ -17,30 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
-from quepasa.models.retrieve_data_request_user_info import RetrieveDataRequestUserInfo
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class RetrieveDataRequest(BaseModel):
+class RetrieveAnswerRequestDocumentRelevanceWeights(BaseModel):
     """
-    RetrieveDataRequest
+    A hybrid ranking formula for documents, balancing two parameters: text for full-text search and semantic for semantic search. The format allows you to adjust the weight of each component. 
     """ # noqa: E501
-    engine: Optional[StrictStr] = Field(default=None, description="Operation mode, either 'search' to search data or 'answer' to generate a response.")
-    question: Optional[StrictStr] = Field(default=None, description="Natural language query to retrieve or answer.")
-    user_info: Optional[RetrieveDataRequestUserInfo] = None
-    __properties: ClassVar[List[str]] = ["engine", "question", "user_info"]
-
-    @field_validator('engine')
-    def engine_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['search', 'answer']):
-            raise ValueError("must be one of enum values ('search', 'answer')")
-        return value
+    text: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The ranking weight for the full-text search factor.")
+    semantic: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The ranking weight for the semantic search factor.")
+    __properties: ClassVar[List[str]] = ["text", "semantic"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,7 +48,7 @@ class RetrieveDataRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of RetrieveDataRequest from a JSON string"""
+        """Create an instance of RetrieveAnswerRequestDocumentRelevanceWeights from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -81,14 +69,11 @@ class RetrieveDataRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of user_info
-        if self.user_info:
-            _dict['user_info'] = self.user_info.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of RetrieveDataRequest from a dict"""
+        """Create an instance of RetrieveAnswerRequestDocumentRelevanceWeights from a dict"""
         if obj is None:
             return None
 
@@ -96,9 +81,8 @@ class RetrieveDataRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "engine": obj.get("engine"),
-            "question": obj.get("question"),
-            "user_info": RetrieveDataRequestUserInfo.from_dict(obj["user_info"]) if obj.get("user_info") is not None else None
+            "text": obj.get("text"),
+            "semantic": obj.get("semantic")
         })
         return _obj
 

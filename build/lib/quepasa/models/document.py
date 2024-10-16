@@ -34,7 +34,7 @@ class Document(BaseModel):
     html: Optional[StrictStr] = Field(default=None, description="Raw HTML content of the document.")
     markdown: Optional[StrictStr] = Field(default=None, description="Raw Markdown content of the document.")
     pages: Optional[List[DocumentPagesInner]] = None
-    language: Optional[StrictStr] = Field(default=None, description="Two-character language code (e.g., \"en\").")
+    language: Optional[StrictStr] = Field(default=None, description="Two-character language code (e.g., 'en').")
     title: Optional[StrictStr] = Field(default=None, description="Optional title of the document.")
     keywords: Optional[StrictStr] = Field(default=None, description="Optional keywords for search optimization.")
     created_at: Optional[datetime] = Field(default=None, description="Creation date in ISO 8601 format.")

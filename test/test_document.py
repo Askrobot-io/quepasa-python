@@ -37,7 +37,6 @@ class TestDocument(unittest.TestCase):
             return Document(
                 id = '',
                 url = '',
-                domain = '',
                 text = '',
                 html = '',
                 markdown = '',

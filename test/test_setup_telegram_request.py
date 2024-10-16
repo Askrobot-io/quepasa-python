@@ -35,8 +35,14 @@ class TestSetupTelegramRequest(unittest.TestCase):
         model = SetupTelegramRequest()
         if include_optional:
             return SetupTelegramRequest(
-                telegram_token = '',
-                commands = None
+                token = '',
+                commands = quepasa.models.setup_telegram_request_commands.setupTelegram_request_commands(
+                    start = quepasa.models.setup_telegram_request_commands_start.setupTelegram_request_commands_start(
+                        name = '', 
+                        message = '', ), 
+                    ask = quepasa.models.setup_telegram_request_commands_ask.setupTelegram_request_commands_ask(
+                        name = '', 
+                        message = '', ), )
             )
         else:
             return SetupTelegramRequest(

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **html** | **str** | Raw HTML content of the document. | [optional] 
 **markdown** | **str** | Raw Markdown content of the document. | [optional] 
 **pages** | [**List[DocumentPagesInner]**](DocumentPagesInner.md) |  | [optional] 
-**language** | **str** | Two-character language code (e.g., \&quot;en\&quot;). | [optional] 
+**language** | **str** | Two-character language code (e.g., "en"). | [optional] 
 **title** | **str** | Optional title of the document. | [optional] 
 **keywords** | **str** | Optional keywords for search optimization. | [optional] 
 **created_at** | **datetime** | Creation date in ISO 8601 format. | [optional] 

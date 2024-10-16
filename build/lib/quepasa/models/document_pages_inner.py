@@ -27,7 +27,7 @@ class DocumentPagesInner(BaseModel):
     DocumentPagesInner
     """ # noqa: E501
     text: StrictStr = Field(description="The content of the chunk.")
-    language: StrictStr = Field(description="Two-character language code (e.g., \"en\").")
+    language: StrictStr = Field(description="Two-character language code (e.g., 'en').")
     __properties: ClassVar[List[str]] = ["text", "language"]
 
     model_config = ConfigDict(
