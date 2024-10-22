@@ -222,6 +222,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**replace_documents**](docs/DefaultApi.md#replace_documents) | **PUT** /upload/data/documents/{domain} | Replace documents
 *DefaultApi* | [**get_batch_status**](docs/DefaultApi.md#get_batch_status) | **GET** /upload/data/batches/{id} | Get batch status
 *DefaultApi* | [**get_document**](docs/DefaultApi.md#get_document) | **GET** /upload/data/documents/{domain}/{id} | Get document details
+*DefaultApi* | [**list_all_documents**](docs/DefaultApi.md#list_all_documents) | **GET** /upload/data/documents | List all documents
 *DefaultApi* | [**list_documents**](docs/DefaultApi.md#list_documents) | **GET** /upload/data/documents/{domain} | List documents
 *DefaultApi* | [**remove_document**](docs/DefaultApi.md#remove_document) | **DELETE** /upload/data/documents/{domain}/{id} | Remove document
 *DefaultApi* | [**remove_domain**](docs/DefaultApi.md#remove_domain) | **DELETE** /upload/data/documents/{domain} | Remove domain
@@ -248,6 +249,9 @@ Class | Method | HTTP request | Description
  - [DocumentDetailDataPagesInner](docs/DocumentDetailDataPagesInner.md)
  - [DocumentNotFound](docs/DocumentNotFound.md)
  - [DocumentPagesInner](docs/DocumentPagesInner.md)
+ - [DomainDataDetail](docs/DomainDataDetail.md)
+ - [DomainDetail](docs/DomainDetail.md)
+ - [DomainListDetail](docs/DomainListDetail.md)
  - [OperationFailedStatus](docs/OperationFailedStatus.md)
  - [RetrieveAnswerRequest](docs/RetrieveAnswerRequest.md)
  - [RetrieveAnswerRequestDocumentRelevanceWeights](docs/RetrieveAnswerRequestDocumentRelevanceWeights.md)

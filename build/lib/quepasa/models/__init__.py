@@ -30,6 +30,9 @@ from quepasa.models.document_detail_data import DocumentDetailData
 from quepasa.models.document_detail_data_pages_inner import DocumentDetailDataPagesInner
 from quepasa.models.document_not_found import DocumentNotFound
 from quepasa.models.document_pages_inner import DocumentPagesInner
+from quepasa.models.domain_data_detail import DomainDataDetail
+from quepasa.models.domain_detail import DomainDetail
+from quepasa.models.domain_list_detail import DomainListDetail
 from quepasa.models.operation_failed_status import OperationFailedStatus
 from quepasa.models.retrieve_answer_request import RetrieveAnswerRequest
 from quepasa.models.retrieve_answer_request_document_relevance_weights import RetrieveAnswerRequestDocumentRelevanceWeights

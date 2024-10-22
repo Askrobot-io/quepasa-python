@@ -40,7 +40,7 @@ class TestRetrieveAnswerRequest(unittest.TestCase):
                 llm = 'anthropic:claude-3-5-sonnet-20240620',
                 prompt = 'anthropic:claude-3-5-sonnet-20240620',
                 answer_prompt_size = 900,
-                prompt_total_size = 900,
+                prompt_total_size = 8110,
                 document_relevance_weights = quepasa.models.retrieve_answer_request_document_relevance_weights.retrieveAnswer_request_document_relevance_weights(
                     text = 0.5, 
                     semantic = 0.5, ),

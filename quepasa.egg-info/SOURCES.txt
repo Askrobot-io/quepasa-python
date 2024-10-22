@@ -33,6 +33,9 @@ quepasa/models/document_detail_data.py
 quepasa/models/document_detail_data_pages_inner.py
 quepasa/models/document_not_found.py
 quepasa/models/document_pages_inner.py
+quepasa/models/domain_data_detail.py
+quepasa/models/domain_detail.py
+quepasa/models/domain_list_detail.py
 quepasa/models/operation_failed_status.py
 quepasa/models/retrieve_answer_request.py
 quepasa/models/retrieve_answer_request_document_relevance_weights.py
@@ -60,6 +63,9 @@ test/test_document_detail_data.py
 test/test_document_detail_data_pages_inner.py
 test/test_document_not_found.py
 test/test_document_pages_inner.py
+test/test_domain_data_detail.py
+test/test_domain_detail.py
+test/test_domain_list_detail.py
 test/test_operation_failed_status.py
 test/test_retrieve_answer_request.py
 test/test_retrieve_answer_request_document_relevance_weights.py

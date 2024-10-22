@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**replace_documents**](DefaultApi.md#replace_documents) | **PUT** /upload/data/documents/{domain} | Replace documents
 [**get_batch_status**](DefaultApi.md#get_batch_status) | **GET** /upload/data/batches/{id} | Get batch status
 [**get_document**](DefaultApi.md#get_document) | **GET** /upload/data/documents/{domain}/{id} | Get document details
+[**list_all_documents**](DefaultApi.md#list_all_documents) | **GET** /upload/data/documents | List all documents
 [**list_documents**](DefaultApi.md#list_documents) | **GET** /upload/data/documents/{domain} | List documents
 [**remove_document**](DefaultApi.md#remove_document) | **DELETE** /upload/data/documents/{domain}/{id} | Remove document
 [**remove_domain**](DefaultApi.md#remove_domain) | **DELETE** /upload/data/documents/{domain} | Remove domain
@@ -537,10 +538,83 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **list_all_documents**
+> DomainListDetail list_all_documents()
+
+List all documents
+
+List all document IDs in all available domains.
+
+### Example
+
+* Bearer (Opaque) Authentication (bearerAuth):
+
+```python
+import quepasa
+from quepasa.models.domain_list_detail import DomainListDetail
+from quepasa.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.quepasa.ai/api/v1
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quepasa.Configuration(
+    host = "https://api.quepasa.ai/api/v1"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (Opaque): bearerAuth
+configuration = quepasa.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quepasa.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    client = quepasa.DefaultApi(api_client)
+
+    try:
+        # List all documents
+        response = client.list_all_documents()
+        print("The response of client.list_all_documents:\n")
+        pprint(response)
+    except Exception as e:
+        print("Exception when calling client.list_all_documents: %s\n" % e)
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**DomainListDetail**](DomainListDetail.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Operation accepted. Batch ID returned. |  -  |
+**500** | Operation failed. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 
 
 # **list_documents**
-> CreatedBatchStatus list_documents(domain)
+> DomainDetail list_documents(domain)
 
 List documents
 
@@ -552,7 +626,7 @@ List all document IDs in the specified domain.
 
 ```python
 import quepasa
-from quepasa.models.created_batch_status import CreatedBatchStatus
+from quepasa.models.domain_detail import DomainDetail
 from quepasa.rest import ApiException
 from pprint import pprint
 
@@ -595,7 +669,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreatedBatchStatus**](CreatedBatchStatus.md)
+[**DomainDetail**](DomainDetail.md)
 
 ### Authorization
 
@@ -611,6 +685,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Operation accepted. Batch ID returned. |  -  |
+**500** | Operation failed. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -653,8 +728,8 @@ configuration = quepasa.Configuration(
 with quepasa.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     client = quepasa.DefaultApi(api_client)
-    domain = 'default' # str |
-    id = 'document_id' # str |
+    domain = 'default' # str | The name of a group of documents. Defaults to "default".
+    id = 'document_id' # str
 
     try:
         # Remove document

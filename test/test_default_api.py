@@ -40,6 +40,13 @@ class TestDefaultApi(unittest.TestCase):
         """
         pass
 
+    def test_list_all_documents(self) -> None:
+        """Test case for list_all_documents
+
+        List all documents
+        """
+        pass
+
     def test_list_documents(self) -> None:
         """Test case for list_documents
 
