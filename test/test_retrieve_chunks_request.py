@@ -37,12 +37,20 @@ class TestRetrieveChunksRequest(unittest.TestCase):
             return RetrieveChunksRequest(
                 question = 'What is LLM?',
                 domain = 'default',
+                relevance_weights = quepasa.models.retrieve_answer_request_relevance_weights.retrieveAnswer_request_relevance_weights(
+                    document = 0.5, 
+                    chunk = 0.5, ),
                 document_relevance_weights = quepasa.models.retrieve_answer_request_document_relevance_weights.retrieveAnswer_request_document_relevance_weights(
                     text = 0.5, 
                     semantic = 0.5, ),
                 chunk_relevance_weights = quepasa.models.retrieve_answer_request_document_relevance_weights.retrieveAnswer_request_document_relevance_weights(
                     text = 0.5, 
-                    semantic = 0.5, )
+                    semantic = 0.5, ),
+                reranker_prompt = '',
+                document_reranker_prompt = '',
+                chunk_reranker_prompt = '',
+                user_info = quepasa.models.retrieve_answer_request_user_info.retrieveAnswer_request_user_info(
+                    id = 'replace-with-some-user-id', )
             )
         else:
             return RetrieveChunksRequest(

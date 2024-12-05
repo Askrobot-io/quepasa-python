@@ -7,8 +7,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **question** | **str** | Natural language query to retrieve or answer. | [optional] 
 **domain** | **str** | The name of a group of documents. | [optional] 
+**relevance_weights** | [**RetrieveAnswerRequestRelevanceWeights**](RetrieveAnswerRequestRelevanceWeights.md) |  | [optional] 
 **document_relevance_weights** | [**RetrieveAnswerRequestDocumentRelevanceWeights**](RetrieveAnswerRequestDocumentRelevanceWeights.md) |  | [optional] 
 **chunk_relevance_weights** | [**RetrieveAnswerRequestDocumentRelevanceWeights**](RetrieveAnswerRequestDocumentRelevanceWeights.md) |  | [optional] 
+**reranker_prompt** | **str** | A prompt template used by the reranking model to prioritize and reorder both documents and chunks based on their relevance to a query. This prompt guides the model in assessing the importance of each document and refining the ranking output.  | [optional] 
+**document_reranker_prompt** | **str** | A prompt template used by the reranking model to prioritize and reorder documents based on their relevance to a query. This prompt guides the model in assessing the importance of each document and refining the ranking output.  | [optional] 
+**chunk_reranker_prompt** | **str** | A prompt template used by the reranking model to prioritize and reorder chunks based on their relevance to a query. This prompt guides the model in assessing the importance of each document and refining the ranking output.  | [optional] 
+**user_info** | [**RetrieveAnswerRequestUserInfo**](RetrieveAnswerRequestUserInfo.md) |  | [optional] 
 
 ## Example
 

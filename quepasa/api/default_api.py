@@ -3369,7 +3369,7 @@ class DefaultApi:
     ) -> CreatedBatchStatus:
         """Upsert urls
 
-        Upload and upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos)
+        Upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos) 
 
         :param domain: The domain name. (required)
         :type domain: str
@@ -3441,7 +3441,7 @@ class DefaultApi:
     ) -> ApiResponse[CreatedBatchStatus]:
         """Upsert urls
 
-        Upload and upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos)
+        Upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos) 
 
         :param domain: The domain name. (required)
         :type domain: str
@@ -3513,7 +3513,7 @@ class DefaultApi:
     ) -> RESTResponseType:
         """Upsert urls
 
-        Upload and upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos)
+        Upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos) 
 
         :param domain: The domain name. (required)
         :type domain: str
