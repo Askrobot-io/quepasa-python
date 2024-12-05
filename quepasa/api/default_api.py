@@ -3065,7 +3065,7 @@ class DefaultApi:
     ) -> CreatedBatchStatus:
         """Upsert files
 
-        Upload and upsert files into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx 
+        Upload and upsert files into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx
 
         :param domain: The domain name. (required)
         :type domain: str
@@ -3141,7 +3141,7 @@ class DefaultApi:
     ) -> ApiResponse[CreatedBatchStatus]:
         """Upsert files
 
-        Upload and upsert files into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx 
+        Upload and upsert files into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx
 
         :param domain: The domain name. (required)
         :type domain: str
@@ -3217,7 +3217,7 @@ class DefaultApi:
     ) -> RESTResponseType:
         """Upsert files
 
-        Upload and upsert files into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx 
+        Upload and upsert files into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx
 
         :param domain: The domain name. (required)
         :type domain: str
@@ -3369,7 +3369,7 @@ class DefaultApi:
     ) -> CreatedBatchStatus:
         """Upsert urls
 
-        Upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos) 
+        Upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos)
 
         :param domain: The domain name. (required)
         :type domain: str
@@ -3441,7 +3441,7 @@ class DefaultApi:
     ) -> ApiResponse[CreatedBatchStatus]:
         """Upsert urls
 
-        Upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos) 
+        Upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos)
 
         :param domain: The domain name. (required)
         :type domain: str
@@ -3513,7 +3513,7 @@ class DefaultApi:
     ) -> RESTResponseType:
         """Upsert urls
 
-        Upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos) 
+        Upsert urls into the document system.  Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos)
 
         :param domain: The domain name. (required)
         :type domain: str
@@ -3582,7 +3582,7 @@ class DefaultApi:
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
         _files: Dict[str, Union[str, bytes]] = {}
-        _urls: Optional[bytes] = None
+        _body_params: Optional[bytes] = None
 
         # process the path parameters
         if domain is not None:
@@ -3592,7 +3592,7 @@ class DefaultApi:
         # process the form parameters
         # process the body parameter
         if urls is not None:
-            _urls = urls
+            _body_params = urls
 
 
         # set the HTTP header `Accept`
@@ -3628,7 +3628,7 @@ class DefaultApi:
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
-            body=_urls,
+            body=_body_params,
             post_params=_form_params,
             files=_files,
             auth_settings=_auth_settings,
