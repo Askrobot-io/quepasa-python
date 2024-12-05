@@ -110,6 +110,13 @@ class TestDefaultApi(unittest.TestCase):
         """
         pass
 
+    def test_upsert_urls(self) -> None:
+        """Test case for upsert_urls
+
+        Upsert urls
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

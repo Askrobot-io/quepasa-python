@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**upsert_files**](DefaultApi.md#upsert_files) | **POST** /upload/data/files/{domain} | Upsert files
 [**upsert_documents**](DefaultApi.md#upsert_documents) | **POST** /upload/data/documents/{domain} | Upsert documents
+[**upsert_urls**](DefaultApi.md#upsert_urls) | **POST** /upload/data/urls/{domain} | Upsert urls
 [**replace_documents**](DefaultApi.md#replace_documents) | **PUT** /upload/data/documents/{domain} | Replace documents
 [**get_batch_status**](DefaultApi.md#get_batch_status) | **GET** /upload/data/batches/{id} | Get batch status
 [**get_document**](DefaultApi.md#get_document) | **GET** /upload/data/documents/{domain}/{id} | Get document details
@@ -217,6 +218,92 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **domain** | **str**| The name of a group of documents. By default, if the field is left empty, the domain name is "default". |
  **documents** | [**List[Document]**](Document.md)|  |
+
+### Return type
+
+[**CreatedBatchStatus**](CreatedBatchStatus.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Operation accepted. Batch ID returned. |  -  |
+**500** | Operation failed. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+
+# **upsert_urls**
+> CreatedBatchStatus upsert_urls(domain, urls)
+
+Upsert urls
+
+Upsert urls into the document system.
+
+Supported formats: txt, md, html, pdf, doc, docx, xls, xlsx, ppt, pptx, Youtube transcripts (form Youtube videos)
+
+### Example
+
+* Bearer (Opaque) Authentication (bearerAuth):
+
+```python
+import quepasa
+from quepasa.models.created_batch_status import CreatedBatchStatus
+from quepasa.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.quepasa.ai/api/v1
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quepasa.Configuration(
+    host = "https://api.quepasa.ai/api/v1"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (Opaque): bearerAuth
+configuration = quepasa.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quepasa.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    client = quepasa.DefaultApi(api_client)
+    domain = 'default' # str | The name of a group of documents. Defaults to "default".
+    urls = [
+        'https://quepasa.ai',
+        'https://docs.quepasa.ai',
+        'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    ]
+
+    try:
+        # Upsert urls
+        response = client.upsert_urls(domain, urls)
+        print("The response of client.upsert_urls:\n")
+        pprint(response)
+    except Exception as e:
+        print("Exception when calling client.upsert_urls: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **domain** | **str**| The name of a group of documents. By default, if the field is left empty, the domain name is "default". |
+ **urls** | [**List[str]**](str.md)|  |
 
 ### Return type
 

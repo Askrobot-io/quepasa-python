@@ -42,7 +42,13 @@ class TestSetupTelegramRequest(unittest.TestCase):
                         message = '', ), 
                     ask = quepasa.models.setup_telegram_request_commands_ask.setupTelegram_request_commands_ask(
                         name = '', 
-                        message = '', ), )
+                        message = '', ), ),
+                domain = '',
+                llm = '',
+                prompt = '',
+                user_names = [
+                    ''
+                    ]
             )
         else:
             return SetupTelegramRequest(

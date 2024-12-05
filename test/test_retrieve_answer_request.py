@@ -38,15 +38,32 @@ class TestRetrieveAnswerRequest(unittest.TestCase):
                 question = 'What is LLM?',
                 domain = 'default',
                 llm = 'anthropic:claude-3-5-sonnet-20240620',
-                prompt = 'anthropic:claude-3-5-sonnet-20240620',
+                prompt = 'You're a bot-assistant that answers the questions.
+
+When answering the question, use the following rules:
+- always answer in {{LANGUAGE}} language;
+- use ONLY the information from the sources below;
+- answer briefly in just a few sentences, strictly in accordance with the sources, and do not make any assumptions;
+- reference the source if you use it in the answer, e.g. [#1] or [#2][#4];
+- if there is no information on the question in the sources: say that you can't find the answer and ask the user to try to reformulate the question.
+
+Sources:
+{{SOURCES}}
+',
                 answer_prompt_size = 900,
                 prompt_total_size = 8110,
+                relevance_weights = quepasa.models.retrieve_answer_request_relevance_weights.retrieveAnswer_request_relevance_weights(
+                    document = 0.5, 
+                    chunk = 0.5, ),
                 document_relevance_weights = quepasa.models.retrieve_answer_request_document_relevance_weights.retrieveAnswer_request_document_relevance_weights(
                     text = 0.5, 
                     semantic = 0.5, ),
                 chunk_relevance_weights = quepasa.models.retrieve_answer_request_document_relevance_weights.retrieveAnswer_request_document_relevance_weights(
                     text = 0.5, 
                     semantic = 0.5, ),
+                reranker_prompt = '',
+                document_reranker_prompt = '',
+                chunk_reranker_prompt = '',
                 user_info = quepasa.models.retrieve_answer_request_user_info.retrieveAnswer_request_user_info(
                     id = 'replace-with-some-user-id', )
             )

@@ -219,6 +219,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**upsert_files**](docs/DefaultApi.md#upsert_files) | **POST** /upload/data/files/{domain} | Upsert files
 *DefaultApi* | [**upsert_documents**](docs/DefaultApi.md#upsert_documents) | **POST** /upload/data/documents/{domain} | Upsert documents
+*DefaultApi* | [**upsert_urls**](docs/DefaultApi.md#upsert_urls) | **POST** /upload/data/urls/{domain} | Upsert urls
 *DefaultApi* | [**replace_documents**](docs/DefaultApi.md#replace_documents) | **PUT** /upload/data/documents/{domain} | Replace documents
 *DefaultApi* | [**get_batch_status**](docs/DefaultApi.md#get_batch_status) | **GET** /upload/data/batches/{id} | Get batch status
 *DefaultApi* | [**get_document**](docs/DefaultApi.md#get_document) | **GET** /upload/data/documents/{domain}/{id} | Get document details
@@ -255,6 +256,7 @@ Class | Method | HTTP request | Description
  - [OperationFailedStatus](docs/OperationFailedStatus.md)
  - [RetrieveAnswerRequest](docs/RetrieveAnswerRequest.md)
  - [RetrieveAnswerRequestDocumentRelevanceWeights](docs/RetrieveAnswerRequestDocumentRelevanceWeights.md)
+ - [RetrieveAnswerRequestRelevanceWeights](docs/RetrieveAnswerRequestRelevanceWeights.md)
  - [RetrieveAnswerRequestUserInfo](docs/RetrieveAnswerRequestUserInfo.md)
  - [RetrieveChunksRequest](docs/RetrieveChunksRequest.md)
  - [SetupTelegramRequest](docs/SetupTelegramRequest.md)

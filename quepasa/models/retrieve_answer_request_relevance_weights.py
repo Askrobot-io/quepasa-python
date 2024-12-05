@@ -17,23 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from quepasa.models.setup_telegram_request_commands import SetupTelegramRequestCommands
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class SetupTelegramRequest(BaseModel):
+class RetrieveAnswerRequestRelevanceWeights(BaseModel):
     """
-    SetupTelegramRequest
+    A hybrid ranking formula that balances the contributions of two parameters: `document` and `chunk`. This structure allows fine-tuning the weight assigned to each component in the ranking process. 
     """ # noqa: E501
-    token: Optional[StrictStr] = Field(default=None, description="Telegram bot token.")
-    commands: Optional[SetupTelegramRequestCommands] = None
-    domain: Optional[StrictStr] = Field(default=None, description="(Optional) The name of a group of documents.")
-    llm: Optional[StrictStr] = Field(default=None, description="(Optional) This is the model that will generate answers to questions based on the retrieved search results.")
-    prompt: Optional[StrictStr] = Field(default=None, description="(Optional) The prompt used for RAG, with placeholders like {{LANGUAGE}} for the language in which the question was asked, and {{SOURCES}} for listing the relevant chunks.")
-    user_names: Optional[List[StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["token", "commands", "domain", "llm", "prompt", "user_names"]
+    document: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The ranking weight assigned to the entire document. Adjust this value to influence the importance of document-level factors in the ranking.")
+    chunk: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The ranking weight assigned to individual chunks of a document. Adjust this value to influence the importance of chunk-level factors in the ranking.")
+    __properties: ClassVar[List[str]] = ["document", "chunk"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -53,7 +48,7 @@ class SetupTelegramRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of SetupTelegramRequest from a JSON string"""
+        """Create an instance of RetrieveAnswerRequestRelevanceWeights from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -74,14 +69,11 @@ class SetupTelegramRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of commands
-        if self.commands:
-            _dict['commands'] = self.commands.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of SetupTelegramRequest from a dict"""
+        """Create an instance of RetrieveAnswerRequestRelevanceWeights from a dict"""
         if obj is None:
             return None
 
@@ -89,12 +81,8 @@ class SetupTelegramRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "token": obj.get("token"),
-            "commands": SetupTelegramRequestCommands.from_dict(obj["commands"]) if obj.get("commands") is not None else None,
-            "domain": obj.get("domain"),
-            "llm": obj.get("llm"),
-            "prompt": obj.get("prompt"),
-            "user_names": obj.get("user_names")
+            "document": obj.get("document"),
+            "chunk": obj.get("chunk")
         })
         return _obj
 

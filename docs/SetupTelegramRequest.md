@@ -7,6 +7,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **token** | **str** | Telegram bot token. | [optional] 
 **commands** | [**SetupTelegramRequestCommands**](SetupTelegramRequestCommands.md) |  | [optional] 
+**domain** | **str** | (Optional) The name of a group of documents. | [optional] 
+**llm** | **str** | (Optional) This is the model that will generate answers to questions based on the retrieved search results. | [optional] 
+**prompt** | **str** | (Optional) The prompt used for RAG, with placeholders like {{LANGUAGE}} for the language in which the question was asked, and {{SOURCES}} for listing the relevant chunks. | [optional] 
+**user_names** | **List[str]** |  | [optional] 
 
 ## Example
 
