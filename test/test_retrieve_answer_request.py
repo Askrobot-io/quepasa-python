@@ -37,6 +37,7 @@ class TestRetrieveAnswerRequest(unittest.TestCase):
             return RetrieveAnswerRequest(
                 question = 'What is LLM?',
                 domain = 'default',
+                kind = 'text',
                 llm = 'anthropic:claude-3-5-sonnet-20240620',
                 prompt = 'You're a bot-assistant that answers the questions.
 

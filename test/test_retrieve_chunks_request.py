@@ -37,6 +37,7 @@ class TestRetrieveChunksRequest(unittest.TestCase):
             return RetrieveChunksRequest(
                 question = 'What is LLM?',
                 domain = 'default',
+                kind = 'text',
                 relevance_weights = quepasa.models.retrieve_answer_request_relevance_weights.retrieveAnswer_request_relevance_weights(
                     document = 0.5, 
                     chunk = 0.5, ),

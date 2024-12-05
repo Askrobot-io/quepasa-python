@@ -31,6 +31,7 @@ class RetrieveChunksRequest(BaseModel):
     """ # noqa: E501
     question: Optional[StrictStr] = Field(default=None, description="Natural language query to retrieve or answer.")
     domain: Optional[StrictStr] = Field(default=None, description="The name of a group of documents.")
+    kind: Optional[StrictStr] = Field(default=None, description="(Experimental) Specifies the type of chunk. Can be \"text\" for raw text chunks, \"summary\" for chunks that are summaries of raw text, or \"all\" to include both types.")
     relevance_weights: Optional[RetrieveAnswerRequestRelevanceWeights] = None
     document_relevance_weights: Optional[RetrieveAnswerRequestDocumentRelevanceWeights] = None
     chunk_relevance_weights: Optional[RetrieveAnswerRequestDocumentRelevanceWeights] = None
@@ -38,7 +39,7 @@ class RetrieveChunksRequest(BaseModel):
     document_reranker_prompt: Optional[StrictStr] = Field(default=None, description="A prompt template used by the reranking model to prioritize and reorder documents based on their relevance to a query. This prompt guides the model in assessing the importance of each document and refining the ranking output. ")
     chunk_reranker_prompt: Optional[StrictStr] = Field(default=None, description="A prompt template used by the reranking model to prioritize and reorder chunks based on their relevance to a query. This prompt guides the model in assessing the importance of each document and refining the ranking output. ")
     user_info: Optional[RetrieveAnswerRequestUserInfo] = None
-    __properties: ClassVar[List[str]] = ["question", "domain", "relevance_weights", "document_relevance_weights", "chunk_relevance_weights", "reranker_prompt", "document_reranker_prompt", "chunk_reranker_prompt", "user_info"]
+    __properties: ClassVar[List[str]] = ["question", "domain", "kind", "relevance_weights", "document_relevance_weights", "chunk_relevance_weights", "reranker_prompt", "document_reranker_prompt", "chunk_reranker_prompt", "user_info"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -105,6 +106,7 @@ class RetrieveChunksRequest(BaseModel):
         _obj = cls.model_validate({
             "question": obj.get("question"),
             "domain": obj.get("domain"),
+            "kind": obj.get("kind"),
             "relevance_weights": RetrieveAnswerRequestRelevanceWeights.from_dict(obj["relevance_weights"]) if obj.get("relevance_weights") is not None else None,
             "document_relevance_weights": RetrieveAnswerRequestDocumentRelevanceWeights.from_dict(obj["document_relevance_weights"]) if obj.get("document_relevance_weights") is not None else None,
             "chunk_relevance_weights": RetrieveAnswerRequestDocumentRelevanceWeights.from_dict(obj["chunk_relevance_weights"]) if obj.get("chunk_relevance_weights") is not None else None,

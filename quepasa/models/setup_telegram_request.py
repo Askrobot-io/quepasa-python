@@ -30,10 +30,11 @@ class SetupTelegramRequest(BaseModel):
     token: Optional[StrictStr] = Field(default=None, description="Telegram bot token.")
     commands: Optional[SetupTelegramRequestCommands] = None
     domain: Optional[StrictStr] = Field(default=None, description="(Optional) The name of a group of documents.")
+    kind: Optional[StrictStr] = Field(default=None, description="(Experimental) Specifies the type of chunk. Can be \"text\" for raw text chunks, \"summary\" for chunks that are summaries of raw text, or \"all\" to include both types.")
     llm: Optional[StrictStr] = Field(default=None, description="(Optional) This is the model that will generate answers to questions based on the retrieved search results.")
     prompt: Optional[StrictStr] = Field(default=None, description="(Optional) The prompt used for RAG, with placeholders like {{LANGUAGE}} for the language in which the question was asked, and {{SOURCES}} for listing the relevant chunks.")
     user_names: Optional[List[StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["token", "commands", "domain", "llm", "prompt", "user_names"]
+    __properties: ClassVar[List[str]] = ["token", "commands", "domain", "kind", "llm", "prompt", "user_names"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -92,6 +93,7 @@ class SetupTelegramRequest(BaseModel):
             "token": obj.get("token"),
             "commands": SetupTelegramRequestCommands.from_dict(obj["commands"]) if obj.get("commands") is not None else None,
             "domain": obj.get("domain"),
+            "kind": obj.get("kind"),
             "llm": obj.get("llm"),
             "prompt": obj.get("prompt"),
             "user_names": obj.get("user_names")

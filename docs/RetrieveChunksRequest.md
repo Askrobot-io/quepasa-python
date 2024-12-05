@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **question** | **str** | Natural language query to retrieve or answer. | [optional] 
 **domain** | **str** | The name of a group of documents. | [optional] 
+**kind** | **str** | (Experimental) Specifies the type of chunk. Can be \&quot;text\&quot; for raw text chunks, \&quot;summary\&quot; for chunks that are summaries of raw text, or \&quot;all\&quot; to include both types. | [optional] 
 **relevance_weights** | [**RetrieveAnswerRequestRelevanceWeights**](RetrieveAnswerRequestRelevanceWeights.md) |  | [optional] 
 **document_relevance_weights** | [**RetrieveAnswerRequestDocumentRelevanceWeights**](RetrieveAnswerRequestDocumentRelevanceWeights.md) |  | [optional] 
 **chunk_relevance_weights** | [**RetrieveAnswerRequestDocumentRelevanceWeights**](RetrieveAnswerRequestDocumentRelevanceWeights.md) |  | [optional] 

@@ -44,6 +44,7 @@ class TestSetupTelegramRequest(unittest.TestCase):
                         name = '', 
                         message = '', ), ),
                 domain = '',
+                kind = 'text',
                 llm = '',
                 prompt = '',
                 user_names = [

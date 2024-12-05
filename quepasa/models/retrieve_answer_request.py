@@ -31,6 +31,7 @@ class RetrieveAnswerRequest(BaseModel):
     """ # noqa: E501
     question: Optional[StrictStr] = Field(default=None, description="Natural language query to retrieve or answer.")
     domain: Optional[StrictStr] = Field(default=None, description="The name of a group of documents.")
+    kind: Optional[StrictStr] = Field(default=None, description="(Experimental) Specifies the type of chunk. Can be \"text\" for raw text chunks, \"summary\" for chunks that are summaries of raw text, or \"all\" to include both types.")
     llm: Optional[StrictStr] = Field(default=None, description="This is the model that will generate answers to questions based on the retrieved search results. Options: - gpt-3.5-turbo-16k-0613 - mistral:mistral-large-2402 - anthropic:claude-3-5-sonnet-20240620 - replicate:meta-llama-3-70b-instruct ")
     prompt: Optional[StrictStr] = Field(default=None, description="The prompt used for RAG, with placeholders like {{LANGUAGE}} for the language in which the question was asked, and {{SOURCES}} for listing the relevant chunks. For example ```plaintext You're a bot-assistant that answers the questions.  When answering the question, use the following rules: - always answer in {{LANGUAGE}} language; - use ONLY the information from the sources below; - answer briefly in just a few sentences, strictly in accordance with the sources, and do not make any assumptions; - reference the source if you use it in the answer, e.g. [#1] or [#2][#4]; - if there is no information on the question in the sources: say that you can't find the answer and ask the user to try to reformulate the question.  Sources: {{SOURCES}} ``` ")
     answer_prompt_size: Optional[StrictInt] = Field(default=None, description="The length of the response in tokens. This parameter defines the maximum number of tokens that the model can use to generate its answer.")
@@ -42,7 +43,7 @@ class RetrieveAnswerRequest(BaseModel):
     document_reranker_prompt: Optional[StrictStr] = Field(default=None, description="A prompt template used by the reranking model to prioritize and reorder documents based on their relevance to a query. This prompt guides the model in assessing the importance of each document and refining the ranking output. ")
     chunk_reranker_prompt: Optional[StrictStr] = Field(default=None, description="A prompt template used by the reranking model to prioritize and reorder chunks based on their relevance to a query. This prompt guides the model in assessing the importance of each document and refining the ranking output. ")
     user_info: Optional[RetrieveAnswerRequestUserInfo] = None
-    __properties: ClassVar[List[str]] = ["question", "domain", "llm", "prompt", "answer_prompt_size", "prompt_total_size", "relevance_weights", "document_relevance_weights", "chunk_relevance_weights", "reranker_prompt", "document_reranker_prompt", "chunk_reranker_prompt", "user_info"]
+    __properties: ClassVar[List[str]] = ["question", "domain", "kind", "llm", "prompt", "answer_prompt_size", "prompt_total_size", "relevance_weights", "document_relevance_weights", "chunk_relevance_weights", "reranker_prompt", "document_reranker_prompt", "chunk_reranker_prompt", "user_info"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -109,6 +110,7 @@ class RetrieveAnswerRequest(BaseModel):
         _obj = cls.model_validate({
             "question": obj.get("question"),
             "domain": obj.get("domain"),
+            "kind": obj.get("kind"),
             "llm": obj.get("llm"),
             "prompt": obj.get("prompt"),
             "answer_prompt_size": obj.get("answer_prompt_size"),
