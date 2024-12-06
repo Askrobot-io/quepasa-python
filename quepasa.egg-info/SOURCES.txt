@@ -39,6 +39,7 @@ quepasa/models/domain_list_detail.py
 quepasa/models/operation_failed_status.py
 quepasa/models/retrieve_answer_request.py
 quepasa/models/retrieve_answer_request_document_relevance_weights.py
+quepasa/models/retrieve_answer_request_relevance_weights.py
 quepasa/models/retrieve_answer_request_user_info.py
 quepasa/models/retrieve_chunks_request.py
 quepasa/models/setup_telegram_request.py
@@ -69,6 +70,7 @@ test/test_domain_list_detail.py
 test/test_operation_failed_status.py
 test/test_retrieve_answer_request.py
 test/test_retrieve_answer_request_document_relevance_weights.py
+test/test_retrieve_answer_request_relevance_weights.py
 test/test_retrieve_answer_request_user_info.py
 test/test_retrieve_chunks_request.py
 test/test_setup_telegram_request.py

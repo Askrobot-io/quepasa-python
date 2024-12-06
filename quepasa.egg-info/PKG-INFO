@@ -1,12 +1,12 @@
 Metadata-Version: 2.1
 Name: quepasa
-Version: 1.0.2
+Version: 1.0.3
 Summary: QuePasa RAG SaaS API
-Home-page: 
-Author: OpenAPI Generator community
-Author-email: team@openapitools.org
+Home-page: https://docs.quepasa.ai/
+Author: Quepasa.ai
+Author-email: yuri@quepasa.ai
 License: UNKNOWN
-Keywords: OpenAPI,OpenAPI-Generator,QuePasa RAG SaaS API
+Keywords: QuePasa RAG SaaS API
 Platform: UNKNOWN
 Description-Content-Type: text/markdown
 
